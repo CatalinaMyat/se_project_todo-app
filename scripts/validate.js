@@ -20,7 +20,7 @@ const checkInputValidity = (formElement, inputElement, settings) => {
       formElement,
       inputElement,
       inputElement.validationMessage,
-      settings,
+      settings
     );
   } else {
     hideInputError(formElement, inputElement, settings);
@@ -45,17 +45,18 @@ const toggleButtonState = (inputList, buttonElement, settings) => {
 
 const setEventListeners = (formElement, settings) => {
   const inputList = Array.from(
-    formElement.querySelectorAll(settings.inputSelector),
+    formElement.querySelectorAll(settings.inputSelector)
   );
+
   const buttonElement = formElement.querySelector(
-    settings.submitButtonSelector,
+    settings.submitButtonSelector
   );
 
   toggleButtonState(inputList, buttonElement, settings);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
-      checkInputValidity(formElement, inputElement, settings);
+      this._checkInputValidity(inputElement);
       toggleButtonState(inputList, buttonElement, settings);
     });
   });
@@ -69,4 +70,10 @@ const enableValidation = (settings) => {
   setEventListeners(formElement, settings);
 };
 
-enableValidation(validationConfig);
+export {
+  showInputError,
+  hideInputError,
+  checkInputValidity,
+  hasInvalidInput,
+  toggleButtonState,
+};
